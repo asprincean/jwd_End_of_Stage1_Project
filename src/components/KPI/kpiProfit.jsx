@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import numeral from 'numeral';
 
 export default function KpiProfit({ qlikApp, objectId, title, color }) {
   // Define states
@@ -23,19 +24,18 @@ export default function KpiProfit({ qlikApp, objectId, title, color }) {
   const [kpiData, setKpiData] = useState(undefined);
   useEffect(() => {
     const getKpiData = async () => {
+      const layout1 = await kpiObject.getLayout();
       const qPath = '/qHyperCubeDef';
       const qPages = [
         {
           qLeft: 0,
           qTop: 0,
-          qWidth: 4, // layoutObject['qHyperCube']['qSize']['qcx']
-          qHeight: 4, // layoutObject['qHyperCube']['qSize']['qcy']
+          qWidth: layout1.qHyperCube.qSize.qcx, // layoutObject['qHyperCube']['qSize']['qcx']
+          qHeight: layout1.qHyperCube.qSize.qcy, // layoutObject['qHyperCube']['qSize']['qcy']
         },
       ];
       // Get the HyperCubeData
       const layout = await kpiObject.getHyperCubeData(qPath, qPages);
-      console.log('layout', layout);
-
       // Determine the total Profit
       let totalRevenue = 0;
       let totalExpenses = 0;
@@ -48,10 +48,10 @@ export default function KpiProfit({ qlikApp, objectId, title, color }) {
         totalExpenses += expenseNumber;
       });
       const totalProfit = totalRevenue - totalExpenses;
-      const round = Math.round(totalProfit / 1000000);
+      const round = Math.round(totalProfit / 100000);
 
       const newKpiData = {
-        value: round,
+        value: numeral(round).format('0,0'),
         percent: layout[0].qMatrix[0][3].qNum * 100,
       };
       setKpiData(newKpiData);
@@ -61,18 +61,22 @@ export default function KpiProfit({ qlikApp, objectId, title, color }) {
     }
   }, [kpiData, kpiObject]);
   let arrow;
+  let arrowcolor;
   // Determine the direction of the arrow symbol, based on percentage value
   if (kpiData?.percent < 0) {
     arrow = 'down';
+    arrowcolor = 'red';
   } else if (kpiData?.percent > 0) {
     arrow = 'up';
+    arrowcolor = 'green';
   } else {
     arrow = '';
+    arrowcolor = 'grey';
   }
   return (
     <Section color={color}>
-      <h5>£ {kpiData?.value.toLocaleString()} m</h5>
-      <Percent direction={arrow}>
+      <h5>£ {kpiData?.value} m</h5>
+      <Percent arrowcolor={arrowcolor}>
         <h6>{title}</h6>
         <span className="percent">
           <i className={`fa-solid fa-arrow-${arrow}`} />
@@ -95,7 +99,6 @@ const Section = styled.div`
   background-color: ${(props) => props.color};
   transition: 0.5s ease-in-out;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
-
   &:hover {
     background-color: #d4e0ff;
     color: black;
@@ -109,12 +112,7 @@ const Section = styled.div`
 const Percent = styled.div`
   // Determine the color of percentage
   .percent {
-    color: ${(props) =>
-      props.direction === 'up'
-        ? 'green'
-        : props.direction === 'down'
-        ? 'red'
-        : 'grey'};
+    color: ${(props) => props.arrowcolor || 'grey'};
     display: flex;
     gap: 1rem;
   }
