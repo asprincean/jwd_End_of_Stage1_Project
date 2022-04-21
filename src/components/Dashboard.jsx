@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import QlikConnector from '../util/qlikConnector';
 import KPI from './KPI/KPI';
 import KpiProfit from './KPI/kpiProfit';
+import TableSales from './tableSales';
 
 function Dashboard() {
   const [qlikApp, setQlikApp] = useState(undefined);
@@ -13,7 +14,6 @@ function Dashboard() {
       sourcedQlikApp = await QlikConnector(
         '187aea12-91a3-4395-9b16-fea2c2613636'
       );
-      // console.log('sourcedQlikApp', sourcedQlikApp);
     } catch (err) {
       console.log(err);
     }
@@ -49,6 +49,7 @@ function Dashboard() {
           color={'#fffce4'}
         ></KpiProfit>
       </div>
+      <TableSales qlikApp={qlikApp} objectId="QJCCUM" />
     </Section>
   );
 }
