@@ -79,7 +79,8 @@ const Section = styled.div`
   border-radius: 1rem;
   color: black;
   justify-content: space-evenly;
-  height: 5rem;
+  font-size: 20px;
+  height: 6rem;
   width: max-content;
   align-items: center;
   background-color: ${(props) => props.color};

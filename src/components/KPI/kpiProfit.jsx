@@ -92,10 +92,10 @@ const Section = styled.div`
   border-radius: 1rem;
   color: black;
   justify-content: space-evenly;
-  height: 5rem;
+  height: 6rem;
+  font-size: 20px;
   width: max-content;
   align-items: center;
-  margin-left: 12px;
   background-color: ${(props) => props.color};
   transition: 0.5s ease-in-out;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.05), 0 0px 40px rgba(0, 0, 0, 0.08);
