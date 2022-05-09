@@ -11,7 +11,7 @@ export const Table = styled.table`
   tbody {
     overflow-y: scroll;
     position: absolute;
-    height: 430px;
+    height: 490px;
     width: 100%;
     tr {
       display: table;

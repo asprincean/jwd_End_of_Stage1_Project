@@ -3,7 +3,6 @@ import WaterfallChart from './waterfallChart';
 
 const DataChart = ({ qlikApp, objectId }) => {
   const [data, setData] = useState();
-
   // Gets the object, and adds a listener to get the data
   useEffect(() => {
     let qlikObject;

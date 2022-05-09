@@ -9,7 +9,7 @@ export const Section = styled.div`
     display: flex;
     column-gap: 1rem;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 800px) {
     .grid {
       width: 70%;
       margin-bottom: 15px;
@@ -21,7 +21,7 @@ export const Section = styled.div`
     width: 100%;
     min-height: 450px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 800px) {
     .grid2 {
       float: left;
       left: 0;
@@ -36,7 +36,7 @@ export const Section = styled.div`
     width: 100%;
     min-height: 450px;
   }
-  @media (min-width: 768px) {
+  @media (min-width: 800px) {
     .grid3 {
       float: right;
       right: 0;
