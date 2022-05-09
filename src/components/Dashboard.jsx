@@ -1,9 +1,10 @@
-import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import QlikConnector from '../util/qlikConnector';
 import KPI from './KPI/KPI';
 import KpiProfit from './KPI/kpiProfit';
 import TableSales from './tableSales';
+import DataChart from './chart/dataChart';
+import { Section } from '../styles/DasboardComponent';
 
 function Dashboard() {
   const [qlikApp, setQlikApp] = useState(undefined);
@@ -49,18 +50,14 @@ function Dashboard() {
           color={'#fffce4'}
         ></KpiProfit>
       </div>
-      <TableSales qlikApp={qlikApp} objectId="QJCCUM" />
+      <div className="grid2">
+        <TableSales qlikApp={qlikApp} objectId="QJCCUM" />
+      </div>
+      <div className="grid3">
+        <DataChart className="grid3" qlikApp={qlikApp} objectId="GwVmqW" />
+      </div>
     </Section>
   );
 }
 
 export default Dashboard;
-const Section = styled.div`
-  margin-left: 1vw;
-  padding: 1rem;
-  height: 100%;
-  .grid {
-    display: grid;
-    grid-template-columns: 22% 22% 22%;
-  }
-`;

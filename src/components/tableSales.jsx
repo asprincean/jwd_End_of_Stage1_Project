@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { Table } from '../styles/TableComponent';
 import numeral from 'numeral';
 
 export default function TableSales({ qlikApp, objectId }) {
@@ -98,46 +98,3 @@ export default function TableSales({ qlikApp, objectId }) {
     </Table>
   );
 }
-
-const Table = styled.table`
-  margin-top: 10px;
-  border: none;
-  border-collapse: collapse;
-  width: 422px;
-  text-align: center;
-  font-size: 15px;
-  tbody {
-    overflow-y: scroll;
-    position: absolute;
-    height: 300px;
-    width: 422px;
-    tr {
-      display: table;
-      table-layout: fixed;
-      width: 100%;
-      transition: 0.5s ease-in-out;
-      text-align: center;
-      :nth-of-type(2n + 1) {
-        background-color: #fffce4;
-      }
-      :hover {
-        background-color: #d4e0ff;
-        cursor: pointer;
-      }
-    }
-  }
-  td,
-  th {
-    border: none;
-    padding: 5px 10px;
-  }
-  td {
-    padding: 5px 10px;
-  }
-  thead {
-    font-size: 0.9em;
-    tr {
-      background-color: #eef4ff;
-    }
-  }
-`;
