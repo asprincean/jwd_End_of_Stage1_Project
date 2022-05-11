@@ -3,8 +3,10 @@ import QlikConnector from '../util/qlikConnector';
 import KPI from './KPI/KPI';
 import KpiProfit from './KPI/kpiProfit';
 import TableSales from './tableSales';
-import DataChart from './chart/dataChart';
 import { Section } from '../styles/DasboardComponent';
+import Selector from './searchBox/Selector';
+import { TableProvider } from '../hooks/TableContext';
+import ToggleButton from './profitChart/toggleButton';
 
 function Dashboard() {
   const [qlikApp, setQlikApp] = useState(undefined);
@@ -50,11 +52,16 @@ function Dashboard() {
           color={'#fffce4'}
         ></KpiProfit>
       </div>
-      <div className="grid2">
-        <TableSales qlikApp={qlikApp} objectId="QJCCUM" />
-      </div>
+      <TableProvider qlikApp={qlikApp} objectId="QJCCUM">
+        <div className="selector">
+          <Selector qlikApp={qlikApp} fieldName="SalesPerson" />
+        </div>
+        <div className="grid2">
+          <TableSales />
+        </div>
+      </TableProvider>
       <div className="grid3">
-        <DataChart className="grid3" qlikApp={qlikApp} objectId="GwVmqW" />
+        <ToggleButton qlikApp={qlikApp} />
       </div>
     </Section>
   );
